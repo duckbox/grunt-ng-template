@@ -30,22 +30,11 @@ module.exports = function(grunt) {
 
     // Configuration to be run (and then tested).
     ng_template: {
-      // default_options: {
-      //   options: {
-      //   },
-      //   files: {
-      //     'tmp/default_options': ['test/fixtures/testing', 'test/fixtures/123'],
-      //   },
-      // },
-      // custom_options: {
-      //   options: {
-      //     separator: ': ',
-      //     punctuation: ' !!!',
-      //   },
-        files: ['_views'],
+        files: ['test/fixtures/views'],
 
         options : {
-          base : 'index.html'
+          appDir : 'test/fixtures',
+          indexFile : 'index.html'
         },
     },
 
@@ -67,8 +56,6 @@ module.exports = function(grunt) {
   // Whenever the "test" task is run, first clean the "tmp" dir, then run this
   // plugin's task(s), then test the result.
   grunt.registerTask('test', ['clean', 'ng_template', 'nodeunit']);
-
-  grunt.registerTask('demo', ['ng_template']);
 
   // By default, lint and run all tests.
   grunt.registerTask('default', ['jshint', 'test']);
