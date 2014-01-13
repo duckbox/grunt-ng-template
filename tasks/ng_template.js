@@ -56,11 +56,8 @@ module.exports = function (grunt) {
 
             }).map(function (filepath) {
 
-                if (grunt.file.isDir(filepath)) {
-
-                    grunt.file.recurse(filepath, function (abspath, rootdir, subdir, filename) {
-
-                        if (filename.indexOf('.html') > -1) {
+                function processTemplate(abspath, filename) {
+                    if (filename.indexOf('.html') > -1) {
 
                             grunt.log.ok(configs.PATH.resolve(abspath).replace(configs.appDir_path, '').replace(/^\//, ''));
 
@@ -71,10 +68,19 @@ module.exports = function (grunt) {
                             configs.partials.push(parsed);
 
                         }
+                }
 
+                if (grunt.file.isDir(filepath)) {
+
+                    grunt.file.recurse(filepath, function (abspath, rootdir, subdir, filename) {
+                        processTemplate(abspath, filename);
                     });
 
-                } else {
+                } 
+                else if (grunt.file.isFile(filepath)) {
+                    processTemplate(filepath, filepath.split(/(\\|\/)/g).pop());
+                }
+                else {
                     grunt.fail.warn(filepath + ' is an invalid directory');
                 }
 
