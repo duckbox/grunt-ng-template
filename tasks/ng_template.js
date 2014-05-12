@@ -61,7 +61,9 @@ module.exports = function (grunt) {
 
                             grunt.log.ok(configs.PATH.resolve(abspath).replace(configs.appDir_path, '').replace(/^\//, ''));
 
-                            var _filename = configs.PATH.resolve(abspath).replace(configs.appDir_path, '').replace(/^\//, ''),
+                            var _filename = configs.PATH.resolve(abspath).replace(configs.appDir_path, '')
+                            		.replace(/\\/g, '/')
+                            		.replace(/^\//, ''),
                                 content = grunt.file.read(configs.PATH.resolve(abspath)),
                                 parsed = configs.TEMPLATE.replace('<% filename %>', _filename).replace('<% content %>', content);
 
